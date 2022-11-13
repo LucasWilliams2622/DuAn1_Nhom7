@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,15 +20,13 @@ import java.util.ArrayList;
 
 public class BookedRoomAdapter extends BaseAdapter {
 
-    public Context context;
+
     public ArrayList<AppRoom> list;
     EditText txtEndDay,txtStartDay;
     Button btnHuyPhong;
     TextView tvTenPhong,tvMaPhong,tvLoaiPhong,tvGiaPhong;
-    ImageView ivRoom;
 
-    public BookedRoomAdapter(Context context, ArrayList<AppRoom> list) {
-        this.context = context;
+    public BookedRoomAdapter(ArrayList<AppRoom> list) {
         this.list = list;
     }
 
@@ -39,36 +38,54 @@ public class BookedRoomAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return list.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        LayoutInflater inflater=((Activity)context).getLayoutInflater();
-        view = inflater.inflate(R.layout.item_recycler_booked_room,null);
-        txtEndDay = view.findViewById(R.id.txtEndDay);
-        txtStartDay = view.findViewById(R.id.txtStartDay);
-        btnHuyPhong = view.findViewById(R.id.btnHuyPhong);
-        tvTenPhong = view.findViewById(R.id.tvTenPhong);
-        tvMaPhong = view.findViewById(R.id.tvMaPhong);
-        tvLoaiPhong = view.findViewById(R.id.tvLoaiPhong);
-        tvGiaPhong = view.findViewById(R.id.tvGiaPhong);
-        ivRoom = view.findViewById(R.id.ivRoom);
-
-        AppRoom room= list.get(position);
-        txtEndDay.setText(room.getEndDay());
-        txtStartDay.setText(room.getStartDay());
-        tvTenPhong.setText(room.getNameRoom());
-        tvMaPhong.setText(room.getIdRoom());
-        tvLoaiPhong.setText(room.getTypeRoom());
-        tvGiaPhong.setText(room.getPriceRoom());
+    public View getView(int _i, View _view, ViewGroup _viewGroup) {
+        View view = _view;
+        if (view == null)
+        {
+            view = View.inflate(_viewGroup.getContext(), R.layout.item_recycler_booked_room,null);
+            txtEndDay = view.findViewById(R.id.txtEndDay);
+            txtStartDay = view.findViewById(R.id.txtStartDay);
+            btnHuyPhong = view.findViewById(R.id.btnHuyPhong);
+            tvTenPhong = view.findViewById(R.id.tvTenPhong);
+            tvMaPhong = view.findViewById(R.id.tvMaPhong);
+            tvLoaiPhong = view.findViewById(R.id.tvLoaiPhong);
+            tvGiaPhong = view.findViewById(R.id.tvGiaPhong);
+            ViewHolder holder = new ViewHolder(txtEndDay,txtStartDay,btnHuyPhong,tvTenPhong,tvMaPhong,tvLoaiPhong,tvGiaPhong);
+            view.setTag(holder);
+        }
+            AppRoom room = (AppRoom) getItem(_i);
+            txtEndDay.setText(room.getEndDay());
+            txtStartDay.setText(room.getStartDay());
+            tvTenPhong.setText(room.getNameRoom());
+            tvMaPhong.setText(room.getIdRoom());
+            tvLoaiPhong.setText(room.getTypeRoom());
+            tvGiaPhong.setText(room.getPriceRoom());
 
         return view;
+    }
+    private static class ViewHolder{
+        final EditText txtEndDay,txtStartDay;
+        final Button btnHuyPhong;
+        final TextView tvTenPhong,tvMaPhong,tvLoaiPhong,tvGiaPhong;
+
+        public ViewHolder(EditText txtEndDay, EditText txtStartDay, Button btnHuyPhong, TextView tvTenPhong, TextView tvMaPhong, TextView tvLoaiPhong, TextView tvGiaPhong) {
+            this.txtEndDay = txtEndDay;
+            this.txtStartDay = txtStartDay;
+            this.btnHuyPhong = btnHuyPhong;
+            this.tvTenPhong = tvTenPhong;
+            this.tvMaPhong = tvMaPhong;
+            this.tvLoaiPhong = tvLoaiPhong;
+            this.tvGiaPhong = tvGiaPhong;
+        }
     }
 
 

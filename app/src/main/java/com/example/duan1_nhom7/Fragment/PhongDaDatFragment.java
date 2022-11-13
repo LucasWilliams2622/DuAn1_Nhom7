@@ -27,7 +27,7 @@ public class PhongDaDatFragment extends Fragment {
         recyclerBookedRoom = view.findViewById(R.id.recyclerBookedRoom);
 
         list = new ArrayList<>();
-        bookedRoomAdapter = new BookedRoomAdapter(getContext(),list);
+        bookedRoomAdapter = new BookedRoomAdapter(list);
 //        recyclerBookedRoom.setAdapter(bookedRoomAdapter);
 
         return view;
